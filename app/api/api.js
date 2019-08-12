@@ -1,12 +1,12 @@
 const host = "http://193.124.114.46:3001";
 const apiProtectedPath = "api/protected";
 
-export registration = () => [host, 'users'].join('/');
+export const registration = () => ([host, 'users'].join('/'));
 
-export login = () => [host, 'sessions/create'].join('/');
+export const login = () => [host, 'sessions/create'].join('/');
 
-export transactions = () => [host, apiProtectedPath, 'transactions'].join('/');
+export const transactions = () => [host, apiProtectedPath, 'transactions'].join('/');
 
-export userInfo = () => [host, apiProtectedPath, 'user-info']
+export const userInfo = () => [host, apiProtectedPath, 'user-info'].join('/');
 
-export usersList = () => [host, apiProtectedPath, 'users/list'].join('/')
+export const usersList = () => [host, apiProtectedPath, 'users/list'].join('/')

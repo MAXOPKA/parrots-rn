@@ -1,10 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AppNavigator from 'ngaftor';
+import { StyleSheet } from 'react-native';
+import AppNavigator from './app/navigation/navigator';
+import { Provider } from 'react-redux';
+import store from './app/core/store';
+import UserInfo from './app/components/userInfo';
 
 export default function App() {
   return(
-    AppNavigator
+    <Provider store={store} >
+      <AppNavigator />
+      <UserInfo />
+    </Provider>
   );
 }
 

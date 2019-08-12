@@ -1,0 +1,15 @@
+export default {
+  authorizing: false,
+  registring: false,
+  gettingUsers: false,
+  gettingUserInfo: false,
+  gettingTransactions: false,
+  creatingTransaction: false,
+  requestError: false,
+  authToken: null,
+  userInfo: null,
+  transactions: [],
+  users: [],
+  newTransaction: null,
+  newUser: null,
+}

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextField } from 'react-native';
 
 class EnterTransactionAmountScreen extends PureComponent {
   render() {
