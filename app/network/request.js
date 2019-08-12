@@ -14,12 +14,9 @@ export default request = (url, options) => {
   let authToken = getAuthToken();
 
   if (authToken !== null) {
-    console.log('111', authToken);
-
     headers['Authorization'] = `Bearer ${authToken}`;
   }
 
   options['headers'] = headers;
-  console.log(options);
   return fetch(url, options);
 }

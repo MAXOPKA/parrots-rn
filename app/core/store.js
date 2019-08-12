@@ -22,7 +22,6 @@ export const getAuthToken = () => authToken
 
 function handleChange() {
   authToken = selectAuthToken(store.getState());
-  console.log(authToken);
 }
 
 const unsubscribe = store.subscribe(handleChange);
