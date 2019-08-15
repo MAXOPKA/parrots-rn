@@ -4,7 +4,9 @@ import {
   GET_USER_INFO_REQUEST, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAIL,
   GET_USERS_REQUEST, GET_USERS_SUCCESS, GET_USERS_FAIL,
   CREATE_TRANSACTION_REQUEST, CREATE_TRANSACTION_SUCCESS, CREATE_TRANSACTION_FAIL,
-  GET_TRANSACTIONS_REQUEST, GET_TRANSACTIONS_SUCCESS, GET_TRANSACTIONS_FAIL
+  GET_TRANSACTIONS_REQUEST, GET_TRANSACTIONS_SUCCESS, GET_TRANSACTIONS_FAIL,
+  UPDATE_NEW_TRANSACTION,
+  LOGOUT
 } from './actionTypes';
 
 export const loginRequest = () => ({ type: LOGIN_REQUEST });
@@ -45,7 +47,10 @@ export const getUserInfoFail = error => ({
 
 export const createTransactionRequest = () => ({ type: CREATE_TRANSACTION_REQUEST });
 
-export const createTransactionSuccess = userInfo => ({ type: CREATE_TRANSACTION_SUCCESS });
+export const createTransactionSuccess = createdTransaction => ({
+  type: CREATE_TRANSACTION_SUCCESS,
+  payload: createdTransaction,
+});
 
 export const createTransactionFail = error => ({
   type: CREATE_TRANSACTION_FAIL,
@@ -66,12 +71,19 @@ export const getTransactionsFail = error => ({
 
 export const getUsersRequest = () => ({ type: GET_USERS_REQUEST });
 
-export const getUsersSuccess = transactions => ({
+export const getUsersSuccess = users => ({
   type: GET_USERS_SUCCESS,
-  payload: transactions
+  payload: users
 });
 
 export const getUsersFail = error => ({
   type: GET_USERS_FAIL,
   payload: error,
 });
+
+export const updateNewTransaction = transaction => ({
+  type: UPDATE_NEW_TRANSACTION,
+  payload: transaction,
+});
+
+export const logout = error => ({ type: LOGOUT });

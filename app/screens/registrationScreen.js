@@ -1,20 +1,34 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Button } from 'react-native-material-ui';
 import { connect } from 'react-redux';
 import { validateEmail } from '../core/validators';
-import { resetToRoute } from '../navigation/navigationHelper';
-import { registration as registrationInteractor } from '../interactors/registration'
+import NavigationService from '../services/navigationService';
+import { registrationAction } from '../interactors/registrationInteractor'
 import ErrorMessage from '../components/errorMessage';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    padding: 16,
     flex: 1,
-    alignItems: 'center'
+  },
+  block: {
+    marginTop: 16,
+  },
+  textInput: {
+    marginTop: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderColor: '#e5e5e5',
   },
 });
 
 class RegistrationScreen extends PureComponent {
+  static navigationOptions = {
+    title: 'Registration',
+  };
+
   static defaultProps = {
     registring: false,
     requestError: null,
@@ -31,12 +45,6 @@ class RegistrationScreen extends PureComponent {
       password: '',
       passwordConfirmation: '',
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.authToken !== null) {
-      resetToRoute(this.props.navigation, 'TransactionsList');
-    }
   }
 
   validate = () => {
@@ -65,16 +73,11 @@ class RegistrationScreen extends PureComponent {
     }
   }
 
-  renderTitle = () => (
-    <Text>
-      {'registration'}
-    </Text>
-  );
-
   renderNameField = () => (
-    <View>
-      <Text>{'name'}</Text>
+    <View style={styles.block} >
+      <Text>{'Name'}</Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.name}
         onChangeText={ name => this.setState({ name }) }
@@ -83,9 +86,10 @@ class RegistrationScreen extends PureComponent {
   );
 
   renderEmailField = () => (
-    <View>
-      <Text>{'email'}</Text>
+    <View style={styles.block} >
+      <Text>{'Email'}</Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.email}
         onChangeText={ email => this.setState({ email }) }
@@ -94,9 +98,10 @@ class RegistrationScreen extends PureComponent {
   );
 
   renderPasswordField = () => (
-    <View>
-      <Text>{'password'}</Text>
+    <View style={styles.block} >
+      <Text>{'Password'}</Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.password}
         onChangeText={ password => this.setState({ password }) }
@@ -105,9 +110,10 @@ class RegistrationScreen extends PureComponent {
   );
 
   renderPasswordConfirmationField = () => (
-    <View>
-      <Text>{'retryPassword'}</Text>
+    <View style={styles.block} >
+      <Text>{'Retry password'}</Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.passwordConfirmation}
         onChangeText={ passwordConfirmation => this.setState({ passwordConfirmation }) }
@@ -117,9 +123,12 @@ class RegistrationScreen extends PureComponent {
 
   renderRegistrationButton = () => (
     <Button
+      style={{ container: styles.block }}
+      primary
+      raised
       onPress={this.onPressRegistrationButton}
       disabled={this.props.registring}
-      title={'registerNow'}
+      text={'Create account'}
     />
   );
 
@@ -128,8 +137,7 @@ class RegistrationScreen extends PureComponent {
     const { error, errorText } = this.state;
 
     return (
-      <View styles={styles.container} >
-        {this.renderTitle()}
+      <View style={styles.container} >
         {this.renderNameField()}
         {this.renderEmailField()}
         {this.renderPasswordField()}
@@ -149,7 +157,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  registration: (name, email, password) => dispatch(registrationInteractor(name, email, password))
+  registration: (name, email, password) => dispatch(registrationAction(name, email, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationScreen);

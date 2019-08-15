@@ -3,8 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    height: 16,
   },
   errorText: {
     color: 'red',
@@ -14,12 +13,13 @@ const styles = StyleSheet.create({
 class ErrorMessage extends PureComponent {
   static defaultProps = {
     errorText: '',
+    style: {},
   }
 
   render() {
     return (
-      <View styles={styles.container} >
-        <Text styles={styles.errorText} >
+      <View style={{ ...styles.container, ...this.props.style }} >
+        <Text style={styles.errorText} >
           {this.props.errorText}
         </Text>
       </View>

@@ -1,9 +1,14 @@
-import { dispatch } from 'redux';
 import { login as loginURL } from '../api/api';
 import { loginRequest, loginSuccess, loginFail } from '../redux/actions';
 import request, { responseHandler } from '../network/request';
+import NavigationService from '../services/navigationService';
 
-export function login(email, password) {
+const loginSuccessHandler = (json, dispatch) => {
+  dispatch(loginSuccess(json.id_token));
+  NavigationService.resetToRoute('TransactionsList');
+}
+
+export function loginAction(email, password) {
   return function(dispatch) {
     let postData = { email, password };
 
@@ -14,10 +19,9 @@ export function login(email, password) {
       body: JSON.stringify(postData),
     })
       .then(
-        response => responseHandler(response),
-        error => dispatch(loginFail(error))
+        response => responseHandler(response, dispatch),
       )
-      .then(json => dispatch(loginSuccess(json.id_token)))
+      .then(json => loginSuccessHandler(json, dispatch))
       .catch(error => dispatch(loginFail(error))
     );
   }

@@ -1,20 +1,35 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button } from 'react-native-material-ui';
 import { connect } from 'react-redux';
 import { validateEmail } from '../core/validators';
-import { resetToRoute } from '../navigation/navigationHelper';
-import { login as loginInteractor } from '../interactors/login'
+import NavigationService from '../services/navigationService';
+import { loginAction } from '../interactors/loginInteractor';
 import ErrorMessage from '../components/errorMessage';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
+    padding: 16,
+  },
+  block: {
+    marginTop: 16,
+  },
+  textInput: {
+    marginTop: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderColor: '#e5e5e5',
   },
 });
 
 class AuthorizationScreen extends PureComponent {
+  static navigationOptions = {
+    title: 'Login',
+    headerBackTitle: 'Back',
+  };
+
   static defaultProps = {
     authorizing: false,
     requestError: null,
@@ -29,12 +44,6 @@ class AuthorizationScreen extends PureComponent {
       email: '',
       password: '',
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.authToken !== null) {
-      resetToRoute(this.props.navigation, 'TransactionsList')
-    }
   }
 
   validate = () => {
@@ -63,18 +72,13 @@ class AuthorizationScreen extends PureComponent {
     this.props.navigation.push('Registration')
   }
 
-  renderTitle = () => (
-    <Text>
-      {'authorization'}
-    </Text>
-  );
-
   renderEmailField = () => (
-    <View>
+    <View style={styles.block} >
       <Text>
-        {'email'}
+        {'Email'}
       </Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.authorizing}
         value={this.state.email}
         onChangeText={ email => this.setState({ email }) }
@@ -83,11 +87,12 @@ class AuthorizationScreen extends PureComponent {
   );
 
   renderPasswordField = () => (
-    <View>
+    <View style={styles.block} >
       <Text>
-        {'password'}
+        {'Password'}
       </Text>
       <TextInput
+        style={styles.textInput}
         editable={!this.props.authorizing}
         value={this.state.password}
         onChangeText={ password => this.setState({ password }) }
@@ -97,18 +102,22 @@ class AuthorizationScreen extends PureComponent {
 
   renderLoginButton = () => (
     <Button
+      style={{ container: styles.block }}
+      raised
+      primary
       disabled={this.props.authorizing}
       onPress={this.onPressLoginButton}
-      title={'login'}
+      text={'login'}
     />
   );
 
   renderToRegistrationButton = () => (
-    <TouchableOpacity
+    <Button
+      style={{ container: styles.block }}
+      raised
+      text={'registration'}
       onPress={this.onPressToRegistrationButton}
-    >
-      <Text>{'registration'}</Text>
-    </TouchableOpacity>
+    />
   );
 
   render() {
@@ -116,12 +125,11 @@ class AuthorizationScreen extends PureComponent {
     const { error, errorText } = this.state;
 
     return (
-      <View styles={styles.container} >
-        {this.renderTitle()}
+      <View style={styles.container} >
         {this.renderEmailField()}
         {this.renderPasswordField()}
-        {!!requestError && <ErrorMessage errorText={requestError.errorMessage} />}
-        {!!error && <ErrorMessage errorText={errorText} />}
+        {!!requestError && <ErrorMessage style={styles.block} errorText={requestError.errorMessage} />}
+        {!!error && <ErrorMessage style={styles.block} errorText={errorText} />}
         {this.renderLoginButton()}
         {this.renderToRegistrationButton()}
       </View>
@@ -136,7 +144,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  login: (email, password) => dispatch(loginInteractor(email, password))
+  login: (email, password) => dispatch(loginAction(email, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationScreen);
