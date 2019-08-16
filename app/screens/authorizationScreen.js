@@ -78,6 +78,7 @@ class AuthorizationScreen extends PureComponent {
         {'Email'}
       </Text>
       <TextInput
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.authorizing}
         value={this.state.email}
@@ -92,6 +93,8 @@ class AuthorizationScreen extends PureComponent {
         {'Password'}
       </Text>
       <TextInput
+        secureTextEntry
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.authorizing}
         value={this.state.password}

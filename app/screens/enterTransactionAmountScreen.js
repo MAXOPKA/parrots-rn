@@ -118,6 +118,8 @@ class EnterTransactionAmountScreen extends PureComponent {
         <Text style={styles.recepientName} > {this.props.newTransaction.name}</Text>
       </Text>
       <TextInput
+        keyboardType={'decimal-pad'}
+        autoCompleteType={'off'}
         style={styles.textInput}
         value={this.props.newTransaction.amount ? this.props.newTransaction.amount.toString() : ''}
         onChangeText={amount => this.onChangeAmount(parseInt(amount, 10) || 0 )}

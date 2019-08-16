@@ -77,6 +77,8 @@ class RegistrationScreen extends PureComponent {
     <View style={styles.block} >
       <Text>{'Name'}</Text>
       <TextInput
+        autoCompleteType={'off'}
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.name}
@@ -89,6 +91,7 @@ class RegistrationScreen extends PureComponent {
     <View style={styles.block} >
       <Text>{'Email'}</Text>
       <TextInput
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.email}
@@ -101,6 +104,8 @@ class RegistrationScreen extends PureComponent {
     <View style={styles.block} >
       <Text>{'Password'}</Text>
       <TextInput
+        secureTextEntry
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.password}
@@ -113,6 +118,8 @@ class RegistrationScreen extends PureComponent {
     <View style={styles.block} >
       <Text>{'Retry password'}</Text>
       <TextInput
+        secureTextEntry
+        autoCompleteType={'off'}
         style={styles.textInput}
         editable={!this.props.registring}
         value={this.state.passwordConfirmation}

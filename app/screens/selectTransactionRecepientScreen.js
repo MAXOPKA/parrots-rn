@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
   autocomplete: {
     position: 'absolute',
     backgroundColor: 'white',
-    minHeight: 24,
     zIndex: 99,
     top: 56,
+    bottom: -200,
     left: 0,
     right: 0,
   },
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     borderColor: '#e5e5e5',
   },
   userItem: {
-    paddingTop: 2,
-    paddingBottom: 2,
+    paddingTop: 4,
+    paddingBottom: 4,
     backgroundColor: 'white',
   },
 });
@@ -88,6 +88,7 @@ class SelectTransactionRecepientScreen extends PureComponent {
     <View>
       <Text>{'Enter Recepient Name'}</Text>
       <TextInput
+        autoCompleteType={'off'}
         style={styles.textInput}
         value={this.state.userName}
         onChangeText={this.onChangeUserName}
